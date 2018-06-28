@@ -1,0 +1,60 @@
+{% extends "mod_hotel/base_mod_backend.html" %} {% block content %}
+    <div>
+        &nbsp;
+    </div>
+    <h1>Bienvenido al Sistema </h1>
+    <h1>Centro Odontológico!</h1>
+    <div>
+        &nbsp;
+    </div>
+    <div class="busqueda">
+        <form action="{% url 'atencion:historia_search' %}" method="get">
+            <div class="col-md-6">
+                <input type="text" name="codigo" id="codigo" value="{{ request.GET.codigo }}"
+                       class="form form-control">
+            </div>
+
+            <div class="col-md-6" style="padding-left:0;">
+                <button type="submit" class="btn btn-search">Buscar</button>
+            </div>
+
+
+        </form>
+    </div>
+    <div class="resultado">
+        {% if persona %}
+            <label for="">Nombres: </label>{{ persona.nombres }}
+            <br>
+            <label for="">Apellido: </label>{{ persona.apellido_paterno }}
+            {{ persona.apellido_materno }}
+            <br>
+            <label for="">C&oacute;digo: </label>{{ persona.codigo }}
+            <br>
+            <label for="">Fecha Nacimiento: </label>{{ persona.fecha_nacimiento }}
+            <br>
+            <label for="">Sexo: </label>{{ persona.sexo }}
+            <br>
+            <label for="">Estado Civil: </label>{{ persona.estado_civil }}
+            <br>
+            <label for="">Estudiante</label>{% if estudiante %}SI {% else %}No {% endif %}
+            <br>
+            <label for="">Matriculado</label> {% if matriculado %} Si {% else %}No {% endif %}
+            <div class="historial">
+                {% if historia %}
+                    <a href="{% url 'atencion:historia_detail' historia.id %}"
+                       class="btn btn-success"> Abir Historial</a> {% else %}
+                    <h2>No tiene historial</h2>
+                    <form action="{% url 'atencion:historia_add' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="persona" id="id_persona"
+                               value="{{ persona.id }}">
+                        <button type="submit" class="btn btn-primary">Crear Historia</button>
+                    </form>
+                    </button>
+                {% endif %}
+            </div>
+        {% else %}
+            <h4 class="col-md-12" style="color:#D42C2C;"> La Persona no Existe</h4> {% endif %}
+    </div>
+{% endblock content %}
+</div>

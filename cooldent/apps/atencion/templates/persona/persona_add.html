@@ -1,0 +1,84 @@
+{% extends "mod_hotel/base_mod_backend.html" %}
+
+{% load i18n crispy_forms_tags %}
+{% load l10n %}
+
+
+{% block content_title %}
+    {{ opts.verbose_name|capfirst }}|
+    <small>{{ title }}</small>
+{% endblock content_title %}
+
+
+{% block content %}
+    <div class="page-header">
+        </h4><a href="{% url 'atencion:persona_add' %}">Pacientes</a></h4>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Registrar Pacientes</h3>
+        </div>
+        <div class="panel-body">
+            {% crispy form %}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" form="persona_form">Agregar</button>
+    <a href="{% url 'atencion:persona_list' %}" class="btn btn-danger">Cancelar</a>
+{% endblock content %}
+
+{% block extrajs %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+
+    </script>
+{% endblock extrajs %}
+{% block customjs %}
+    <script type="text/javascript">
+        $(function () {
+            $('#id_fecha_nacimiento').datetimepicker({
+                format: 'DD/MM/YYYY',
+                pickTime: false
+            });
+
+        });
+
+        $('#id_provincia').on('change', distrito);
+        function distrito() {
+            var id = $(this).val();
+            $.ajax({
+                data: {'id': id},
+                url: '{% url 'atencion:busqueda_distrito' %}',
+                type: 'get',
+                success: function (data) {
+
+                    $("#id_distrito").html(data.distritos);
+                    $("#id_distrito").trigger("change");
+                },
+                failure: function (errMsg) {
+                    $('#errorMessage').text(errMsg);
+                }
+            });
+        }
+
+        $('#id_departamento').on('change', provincia);
+        function provincia() {
+            var id = $(this).val();
+            $.ajax({
+                data: {'id': id},
+                url: '{% url 'atencion:busqueda_provincia' %}',
+                type: 'get',
+                success: function (data) {
+
+                    $("#id_provincia").html(data.provincias);
+                    $("#id_provincia").trigger("change");
+                },
+                failure: function (errMsg) {
+                    $('#errorMessage').text(errMsg);
+                }
+            });
+        }
+    </script>
+
+{% endblock customjs %}
+

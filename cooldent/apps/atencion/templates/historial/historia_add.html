@@ -1,0 +1,79 @@
+{% extends "mod_hotel/base_mod_backend.html" %} {% load i18n crispy_forms_tags %} {% block content %}
+<div class="page-header">
+    </h4>
+    <a href="{% url 'atencion:persona_list' %}">Regresar</a>
+    </h4>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Evolución</h3>
+
+    </div>
+    <div class="panel-body">
+        {% crispy form %}
+    </div>
+</div>
+<div class="text-right">
+    <a href="{% url 'atencion:persona_list' %}" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary" form="historia_form">Registrar</button>
+</div>
+{% endblock %} {% block customjs %}
+<script>
+    $("#id_examen_atm").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_atm_s").prop('type', 'text');
+        } else {
+            $("#id_examen_atm_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_atm_ganglios").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_atm_ganglios_s").prop('type', 'text');
+        } else {
+            $("#id_examen_atm_ganglios_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_labios").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_labios_s").prop('type', 'text');
+        } else {
+            $("#id_examen_labios_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_vestibulo").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_vestibulo_s").prop('type', 'text');
+        } else {
+            $("#id_examen_vestibulo_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_lengua").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_lengua_s").prop('type', 'text');
+        } else {
+            $("#id_examen_lengua_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_paladar").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_paladar_s").prop('type', 'text');
+        } else {
+            $("#id_examen_paladar_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_piso_boca").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_piso_boca_s").prop('type', 'text');
+        } else {
+            $("#id_examen_piso_boca_s").prop('type', 'hidden');
+        }
+    });
+    $("#id_examen_periodonto").change(function () {
+        if ($(this).val() == 'Especificar') {
+            $("#id_examen_periodonto_s").prop('type', 'text');
+        } else {
+            $("#id_examen_periodonto_s").prop('type', 'hidden');
+        }
+    });
+
+</script> {% endblock customjs %}

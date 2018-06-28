@@ -1,0 +1,611 @@
+{% extends "mod_hotel/base_mod_backend.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% block content %}
+    <div class="page-header">
+        </h4><a href="{% url 'atencion:persona_odontograma_update' historia.persona.id %}">Regresar</a></h4>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">ODONTOGRAMA -
+                Paciente: {{ historia.persona.nombres }} {{ historia.persona.apellido_paterno }} {{ historia.persona.apellido_materno }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="text-center">
+                        <table class="odontograma">
+                            <tr>
+                                <td style="border-bottom: 1px solid #ccc;border-right: 1px solid #ccc;">
+                                    <table class="cuadrante cuadrante-1">
+                                        <tr class="permanentes">
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        {% for p in piezas_permanentes_c1 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.id }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr class="temporales">
+                                            <td style="text-align: right;">
+                                                <table style="display: inline-block;">
+                                                    <tr>
+                                                        {% for p in piezas_temporales_c1 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="border-bottom: 1px solid #ccc;border-left: 1px solid #ccc;">
+                                    <table class="cuadrante cuadrante-2">
+                                        <tr class="permanentes">
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        {% for p in piezas_permanentes_c2 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr class="temporales">
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        {% for p in piezas_temporales_c2 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 1px solid #ccc;border-right: 1px solid #ccc;">
+                                    <table class="cuadrante cuadrante-4">
+                                        <tr class="temporales">
+                                            <td style="text-align: right;">
+                                                <table style="display: inline-block;">
+                                                    <tr>
+                                                        {% for p in piezas_temporales_c4 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr class="permanentes">
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        {% for p in piezas_permanentes_c4 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="border-top: 1px solid #ccc;border-left: 1px solid #ccc;">
+                                    <table class="cuadrante cuadrante-3">
+                                        <tr class="temporales">
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        {% for p in piezas_temporales_c3 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr class="permanentes">
+                                            <td>
+                                                <table>
+                                                    <tr>
+                                                        {% for p in piezas_permanentes_c3 %}
+                                                            <td>
+                                                                <table class="pieza">
+                                                                    <tr>
+                                                                        <td class="{{ p.tratamiento.css_class }}">
+                                                                            <img src="{{ p.pieza.imagen.url }}"
+                                                                                 alt="{{ p.pieza.nombre }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{ p.pieza.abrev }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table class="caras">
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_1_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="1">{{ p.pieza.cara_1.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_2_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="2">{{ p.pieza.cara_2.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_3_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="3">{{ p.pieza.cara_3.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_4_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="4">{{ p.pieza.cara_4.abrev }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                            <span class="{{ p.cara_5_tratamiento.css_class }}"
+                                                                                  data-op="{{ p.id }}"
+                                                                                  data-nro-cara="5">{{ p.pieza.cara_5.abrev }}</span>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="leyenda">
+                        <fieldset>
+                            <legend>Seleccione el di&aacute;gnostico</legend>
+                            <div class="btn-group-vertical tratamientos">
+                                {% for t in tratamientos %}
+                                    <button onclick="setActive(this);" data-id="{{ t.id }}"
+                                            data-css-class="{{ t.css_class }}"
+                                            class="btn {{ t.css_class }}">{{ t.nombre }}</button>
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend>Diagnóstico</legend>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_informe" class="control-label ">
+                                    Informe
+                                </label>
+                                <textarea class="textarea form-control" cols="40" id="id_informe"
+                                          rows="3">{{ odontograma.informe|default_if_none:"" }}</textarea></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group"><label for="id_plan_tratamiento" class="control-label ">Plan
+                                tratamiento</label>
+                                <textarea class="textarea form-control" cols="40"
+                                          id="id_plan_tratamiento"
+                                          rows="3">{{ odontograma.plan_tratamiento|default_if_none:"" }}</textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

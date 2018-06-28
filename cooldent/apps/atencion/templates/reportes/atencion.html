@@ -1,0 +1,16 @@
+{% extends "mod_hotel/base_mod_backend.html" %} 
+
+{% block content %}
+
+<div id="container" style="height: 300px"></div>
+{% endblock %}
+{% block customjs %}
+    <script type="text/javascript">
+    $(function () {
+        $.getJSON("{% url 'atencion:bar' %}", function(data) {
+            $('#container').highcharts(data);
+        });
+    });
+    </script>
+{% endblock customjs %}
+

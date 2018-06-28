@@ -1,0 +1,129 @@
+{% extends "mod_hotel/base_mod_backend.html" %} {% block title %} {% endblock %} 
+{% load i18n app_security %}
+{% load l10n humanize %}
+
+{% block content %}
+<script type="text/javascript">
+    $(function () {
+        $('table').kgrid({
+            form_data: ['{{f}}', '{{q}}'],
+            form_to: '{% url "atencion:persona_list" %}?f={{f}}&q={{q}}',
+            order_attr: 'class=""',
+            order_to: '{% url "atencion:persona_list" %}?f={{f}}&q={{q}}',
+        });
+    });
+</script>
+
+<div class="page-header">
+    </h4>
+    <a href="{% url 'atencion:persona_list' %}">Pacientes</a>
+    </h4>
+</div>
+<h2>Lista de Pacientes</h2>
+<div class="btn-toolbar btn-toolbar-top">
+    <div class="row">
+        <div class="btn-actions">
+            <a href="{% url 'atencion:persona_add' %}" class="btn btn-primary text-bold" title="Agregar Persona">
+                <i class="fa fa-plus">
+                </i>
+                <span class="hidden-xs"> Agregar Paciente
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-overflow table-responsive">
+    <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="" data-search="nombres" data-order="nombres">Nombres</th>
+                <th class="" data-search="apellido_paterno" data-order="apellido_paterno">Apellido Paterno</th>
+                <th class="" data-search="apellido_materno" data-order="apellido_materno">Apellido Materno</th>
+                <th class="btn-actions col-block text-center">Celular</th>
+                <th class="btn-actions col-block text-center">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in object_list %}
+            <tr class="{{ d.estado|yesno:',danger' }}">
+                <td>
+                    {% if is_paginated %} {{ page_obj.start_index|add:forloop.counter0 }} {% else %} {{ forloop.counter }} {% endif %}
+                </td>
+
+                <td>{{ d.nombres }}</td>
+                <td>{{ d.apellido_paterno }}</td>
+                <td>{{ d.apellido_materno }}</td>
+                <td>{{ d.telefono }}</td>
+                <td class="text-center">
+                    {% if d.con_historia %}
+                    <a href="{% url 'atencion:persona_historial' d.id %}" class="btn btn-success btn-sm text-bold" title="Registrar H.C" rel="tooltip">
+                        <i class="btn-icon-only fa fa-file-text-o"></i>
+                    </a>
+                    <a href="{% url 'atencion:persona_consulta_create' d.id %}" class="btn btn-primary btn-sm text-bold" title="Registrar Cita"
+                        rel="tooltip">
+                        <i class="btn-icon-only fa fa-calendar"></i>
+                    </a>
+                    <a href="{% url 'atencion:persona_odontograma_update' d.id %}" class="btn btn-primary btn-sm text-bold" title="Odontograma"
+                        rel="tooltip">
+                        <i class="btn-icon-only fa fa-bookmark"></i>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'atencion:persona_historia_create' pk=d.id %}" class="btn btn-primary btn-sm text-bold" title="Aperturar H.C."
+                        rel="tooltip">
+                        <i class="btn-icon-only fa fa-plus"></i>
+                    </a>
+                    {% endif %} {% if d.estado %}
+                    <a href="{% url 'atencion:persona_state' 'ina' d.pk %}" class="btn btn-success btn-sm text-bold" title="{% trans 'inactivate'|capfirst %} {% trans 'Persona' %}"
+                        rel="tooltip">
+                        <i class="btn-icon-only fa fa-flag"></i>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'atencion:persona_state' 'rea' d.pk %}" class="btn btn-info btn-sm text-bold" title="{% trans 'reactivate'|capfirst %} {% trans 'Persona' %}"
+                        rel="tooltip">
+                        <i class="btn-icon-only fa fa-flag"></i>
+                    </a>
+
+                    {% endif %}
+                    
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    {% if is_paginated %} {% load paginator %} {% paginator %} {% else %}
+    <div class="col-md-12">
+        <ul class="breadcrumbpag">
+<<<<<<< HEAD
+            {{ object_list.count }} 
+            {% ifequal object_list.count 1 %} 
+            {{ opts.verbose_name|capfirst }} 
+            {% else %}
+            {{ opts.verbose_name_plural|capfirst }}
+            {% endifequal %}
+=======
+            {{ object_list.count }} {% ifequal object_list.count 1 %} {{ opts.verbose_name|capfirst }} {% else %}{{ opts.verbose_name_plural|title
+            }} {% endifequal %}
+>>>>>>> e6ba3332dfb1187bec00981b54add7d4acd6ddb4
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %} 
+{% block customjs %}
+<script>
+    $('#delmodal').on('hidden.bs.modal', function () {
+        $(location).attr('href', '{% url "atencion:persona_list" %}');
+    });
+    $('#updmodal').on('hidden.bs.modal', function () {
+        $(location).attr('href', '{% url "atencion:persona_list" %}');
+    });
+
+</script> {% endblock %}

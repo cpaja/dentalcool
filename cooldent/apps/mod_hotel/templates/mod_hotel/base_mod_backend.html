@@ -1,0 +1,113 @@
+{% extends "mod_hotel/base.html" %} {% load i18n staticfiles user_menu %} {% block title %}
+    {{ title }} {% endblock title %} {% block extrastyle %}
+    <link href="{% static 'jasny-bootstrap/css/jasny-bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'custom/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'custom/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap-fileinput/css/fileinput.css' %}" rel="stylesheet">
+    <link href="{% static 'custom/css/navbar-fixed-top.css' %}" rel="stylesheet">
+    <style>
+        a.colortext {
+            color: #fff;
+        }
+
+        a:hover {
+            color: #000;
+        }
+    </style>
+{% endblock extrastyle %}
+{% block header %} {% include "mod_backend/partials/header.html" %}
+{% endblock header %} {% block rootcontainer %}
+    <div id="shell-load">
+        <div id="shell-content" class="col-md-12 container-fluid"
+             style="padding-left:0px !important;padding-right:0px !important;">
+            {% block messages %} {% load notify %} {% get_notify request %} {% endblock messages %}
+            <div class="col-md-2"
+                 style="background:#333;text-align:center;padding-left:0px !important;padding-right:0px !important;">
+
+                <div class="col-md-12" style="background:#252525 !important;">
+                    <div>
+                        &nbsp;
+                    </div>
+                    <img src="{% static 'custom/img/upeu.png' %}" alt=""
+                         style="width:90px;height:90px;border-radius:50%;">
+                    <div>
+                        &nbsp;
+                    </div>
+                </div>
+
+
+                <ul class="side-nav nav nav-second-level col-md-12"
+                    style="font-variant:small-caps;font-weight:900;">
+                    <li>
+                        <a href="{% url 'atencion:historia_search' %}" class="colortext"><h5>Buscar
+                            Paciente</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:persona_list' %}" class="colortext"><h5>
+                            Pacientes</h5></a>
+                    </li>
+{#                    <li>#}
+{#                        <a href="{% url 'calendar' %}" class="colortext"><h5>#}
+{#                            Citas</h5></a>#}
+{#                    </li>#}
+                    <li>
+                        <a href="{% url 'atencion:producto_list' %}" class="colortext"><h5>
+                            Medicamentos</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:periodo_list' %}" class="colortext"><h5>
+                            Periodo</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:laboratorio_list' %}" class="colortext"><h5>
+                            Prueba de Laboratorio</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:funcionesvitales_list' %}" class="colortext"><h5>
+                            Funciones Vitales</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:unidadmedida_list' %}" class="colortext"><h5>
+                            Unidad de Medida</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:diagnostico_list' %}" class="colortext"><h5>
+                            CIE10</h5></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'atencion:reporte_atencion' %}" class="colortext"><h5>
+                            Reportes</h5></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                {% block content %} {% endblock content %}
+            </div>
+            {% block sidebar %} {% endblock sidebar %}
+        </div>
+    </div>
+    </div>
+    <!-- /dw-shell-load -->
+{% endblock rootcontainer %} {% block footer %}
+    {% include "mod_backend/partials/footer.html" %} {% endblock footer %}
+<div id="loading-content" class="alpha60"></div>
+<div id="spinner" class="preview corner-all shadow-dark"></div>
+{% block extrajs %}
+    <!--
+<script src="{% static 'jquery/jquery.spinx.js' %}"></script>
+-->
+    <script src="{% static 'jasny-bootstrap/js/jasny-bootstrap.js' %}"></script>
+    <script src="{% static 'custom/js/jquery.kumbiaphp.js' %}"></script>
+    <script src="{% static 'custom/js/jquery.kgrid.js' %}"></script>
+    <!--
+<script src="{% static 'custom/js/jquery.kloadx.js' %}"></script>
+-->
+    <script src="{% static 'custom/js/backend.js' %}"></script>
+    <script src="{% static 'custom/js/validador.js' %}"></script>
+    <script src="{% static 'custom/js/jquery.keyfilter.js' %}"></script>
+    <script src="{% static 'bootstrap-fileinput/js/fileinput.js' %}"></script>
+{% endblock extrajs %}
+
+{% block customjs %}
+    
+{% endblock customjs %}
